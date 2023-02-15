@@ -104,7 +104,7 @@ FwdAuto.optcriterionaffix = myMT5run.get_optcriterion_affix(optcriterion=0) # **
 
 # (***)推进回测EA的目录(后面不能带\\)和文件名(***)
 FwdAuto.bt_experfolder = "My_Experts\\Strategy深度研究\\3.包络线振荡策略\\推进交易.2Y6M"
-FwdAuto.bt_expertfile = "a1.f3.{}.{}.ex5".format("_Symbol", myMT5run.timeframe_to_ini_affix(FwdAuto.timeframe))
+FwdAuto.bt_expertfile = "a1.f3._Symbol.{}.ex5".format(myMT5run.timeframe_to_ini_affix(FwdAuto.timeframe))
 # (***)推进回测的时间起始(***)
 FwdAuto.bt_starttime = "2016.07.01"  # 手动指定******
 FwdAuto.bt_endtime = "2023.01.01"  # 手动指定******

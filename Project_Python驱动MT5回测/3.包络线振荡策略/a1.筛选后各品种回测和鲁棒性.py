@@ -76,6 +76,8 @@ FwdRob = MyClass_ForwardRobustness()
 FwdRob.symbollist = ["EURUSD", "GBPUSD", "USDCHF", "USDJPY", "USDCAD", "AUDUSD", "AUDNZD", "AUDCAD", "AUDCHF", "AUDJPY", "GBPJPY", "CHFJPY", "EURGBP", "EURAUD", "EURCHF", "EURJPY", "EURNZD", "EURCAD", "GBPCHF", "USDSGD", "CADCHF", "CADJPY", "GBPAUD", "GBPCAD", "GBPNZD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD", "XAUUSD", "XAGUSD"] # 策略的品种列表******
 FwdRob.symbollist = ["AUDCAD","AUDCHF","AUDJPY","AUDNZD","CADJPY","EURCHF","EURJPY","EURNZD","EURUSD","GBPCAD","GBPCHF","GBPNZD","GBPUSD","NZDUSD","USDCAD","USDCHF","XAUUSD"] # 筛选的品种******
 
+
+
 FwdRob.timeframe = "TIMEFRAME_M30" # 策略的时间框******
 FwdRob.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
 FwdRob.bt_endtime = "2023.02.16"  # 手动指定******，一般为最近的时间
@@ -101,7 +103,7 @@ FwdRob.bt_expertnameform = "a1.f3._Symbol.{}.ex5" # 必须是 a1.f5._Symbol.M15 
 # (***)回测的设置(***)，一般只要修改 delays
 FwdRob.bt_forwardmode = 0  # 向前检测 (0 "No", 1 "1/2", 2 "1/3", 3 "1/4", 4 "Custom")
 FwdRob.bt_model = 1  # 0 "每笔分时", 1 "1 分钟 OHLC", 2 "仅开盘价", 3 "数学计算", 4 "每个点基于实时点"
-FwdRob.profitinpips = 0 # profitinpips = 1 用pips作为利润，不用具体的货币。0用具体货币，且考虑佣金
+FwdRob.profitinpips = 0 # profitinpips = 1 用pips作为利润，不用具体的货币。0用具体货币，且考虑佣金. 用0在交叉货币会出bug！
 FwdRob.delays = 230 # ******
 
 

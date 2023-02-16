@@ -64,8 +64,8 @@ myDefault.set_backend_default("Pycharm")  # Pycharm下需要plt.show()才显示�
 
 # %%
 ''' 
-需要有对应的EA文件，比如 a1.f5._Symbol.M15.ex5，且要设置主要时间框 MainTF 的外部参数！
-其中品种鲁棒性需要有对应文件，比如 a1.f5.EURUSD.M15.ex5，内部要指定好 FileSymbol 参数.
+需要有对应的EA文件，比如 a1.f3._Symbol.M30.ex5，且要设置主要时间框 MainTF 的外部参数！
+其中品种鲁棒性需要有对应文件，比如 a1.f3._Symbol.M30.ex5，内部要指定好 FileSymbol 参数.
 '''
 import warnings
 warnings.filterwarnings('ignore')
@@ -73,14 +73,16 @@ from MyPackage.MyProjects.MT5推进分析.ForwardRobustness import MyClass_Forwa
 FwdRob = MyClass_ForwardRobustness()
 
 # (***)推进回测(***)
-FwdRob.symbollist = ["AUDJPY","GBPJPY","GBPUSD","USDJPY","XAUUSD"] # 策略的品种列表******
-FwdRob.timeframe = "TIMEFRAME_M15" # 策略的时间框******
+FwdRob.symbollist = ["EURUSD", "GBPUSD", "USDCHF", "USDJPY", "USDCAD", "AUDUSD", "AUDNZD", "AUDCAD", "AUDCHF", "AUDJPY", "GBPJPY", "CHFJPY", "EURGBP", "EURAUD", "EURCHF", "EURJPY", "EURNZD", "EURCAD", "GBPCHF", "USDSGD", "CADCHF", "CADJPY", "GBPAUD", "GBPCAD", "GBPNZD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD", "XAUUSD", "XAGUSD"] # 策略的品种列表******
+FwdRob.symbollist = ["AUDCAD","AUDCHF","AUDJPY","AUDNZD","CADJPY","EURCHF","EURJPY","EURNZD","EURUSD","GBPCAD","GBPCHF","GBPNZD","GBPUSD","NZDUSD","USDCAD","USDCHF","XAUUSD"] # 筛选的品种******
+
+FwdRob.timeframe = "TIMEFRAME_M30" # 策略的时间框******
 FwdRob.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
-FwdRob.bt_endtime = "2023.02.06"  # 手动指定******，一般为最近的时间
+FwdRob.bt_endtime = "2023.02.16"  # 手动指定******，一般为最近的时间
 
 # (***)输出目录(***)
 # 输出的总目录******
-FwdRob.contentfolder = r"F:\BaiduNetdiskWorkspace\工作---MT5策略研究\8.ZigZag与均线缠绕后突破轨道"
+FwdRob.contentfolder = r"F:\BaiduNetdiskWorkspace\工作---MT5策略研究\6.包络线振荡策略"
 # 之前推进分析手工建立的目录******
 FwdRob.bt_folder = FwdRob.contentfolder + r"\2.策略筛选.2016-07-01.2023-01-01"
 
@@ -94,7 +96,7 @@ FwdRob.bt_reportfolder3 = FwdRob.bt_folder + r"\Symbol鲁棒性.{}_{}".format(Fw
 # (***)推进回测EA的目录(后面不能带\\)和文件名(***)
 FwdRob.bt_experfolder = "My_Experts\\Strategy深度研究\\5.ZigZag与均线缠绕后突破轨道\\推进交易.2Y6M"
 # (***)ex5的名称格式(***)，要修改
-FwdRob.bt_expertnameform = "a1.f5.{}.{}.ex5" # 必须是 a1.f5._Symbol.M15 或 a1.f5.EURUSD.M15 格式，最后1个{}对应时间框词缀 或 两个{}对应品种.时间框词缀.
+FwdRob.bt_expertnameform = "a1.f3._Symbol.{}.ex5" # 必须是 a1.f5._Symbol.M15 或 a1.f5.EURUSD.M15 格式，最后1个{}对应时间框词缀 或 两个{}对应品种.时间框词缀.
 
 # (***)回测的设置(***)，一般只要修改 delays
 FwdRob.bt_forwardmode = 0  # 向前检测 (0 "No", 1 "1/2", 2 "1/3", 3 "1/4", 4 "Custom")

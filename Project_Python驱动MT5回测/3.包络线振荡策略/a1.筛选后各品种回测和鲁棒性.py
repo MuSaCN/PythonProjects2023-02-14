@@ -147,7 +147,7 @@ FwdRob.tf_robustness()
 
 #%% ### 品种鲁棒性，要求 strategy_set(symbol) 有symbol参数！###
 # 注意全品种测试时，EA内部参数要符合相应的条件才行！
-# 有bug输出内容为空，所以不自动关闭MT5.
+# 有bug输出内容为空，所以不自动关闭MT5，设置 shutdownterminal=0.
 FwdRob.prepare(common_set3, strategy_set3)
 FwdRob.symbol_robustness(shutdownterminal=0)
 

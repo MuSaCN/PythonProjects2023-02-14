@@ -101,20 +101,20 @@ def common_set():
 
 def strategy_set1(): # Repair_ExpandPoint
     myMT5run.input_set("Inp_RepairMode", "1||0||0||3||N")
-    myMT5run.input_set("Repair_ExpandPoint", "200||100||10||400||Y")
-    myMT5run.input_set("Repairt_FixedPointStart", "200||100||10||400||N")
+    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||Y")
+    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||N")
     myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||N")
 
 def strategy_set2(): # Repairt_FixedPointStart
     myMT5run.input_set("Inp_RepairMode", "2||0||0||3||N")
-    myMT5run.input_set("Repair_ExpandPoint", "200||100||10||400||N")
-    myMT5run.input_set("Repairt_FixedPointStart", "200||100||10||400||Y")
+    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||N")
+    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||Y")
     myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||N")
 
 def strategy_set3(): # Repair_ATRMulti
     myMT5run.input_set("Inp_RepairMode", "3||0||0||3||N")
-    myMT5run.input_set("Repair_ExpandPoint", "200||100||10||400||N")
-    myMT5run.input_set("Repairt_FixedPointStart", "200||100||10||400||N")
+    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||N")
+    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||N")
     myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||Y")
 
 

@@ -77,7 +77,8 @@ FwdRprAd.bt_endtime = "2023.02.17"  # 手动指定******，一般为最近的时
 # (***)输出目录(***)
 # 输出的总目录******
 FwdRprAd.contentfolder = r"F:\BaiduNetdiskWorkspace\工作---MT5策略研究\6.包络线振荡策略"
-
+# 由于区分的首次修复为同向还是异向，所以放下面******
+# FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\3.筛选后修复和加仓.2016-07-01.2023-01-01.IC"
 
 # (***)推进回测EA的目录(后面不能带\\)和文件名(***)
 FwdRprAd.bt_experfolder = "My_Experts\\Strategy深度研究\\3.包络线振荡策略\\推进交易.2Y6M"
@@ -90,15 +91,14 @@ FwdRprAd.bt_profitinpips = 0 # profitinpips = 1 用pips作为利润，不用具�
 FwdRprAd.bt_optimization = 1  #  0 禁用优化, 1 "慢速完整算法", 2 "快速遗传算法", 3 "所有市场观察里选择的品种"
 
 
-
-#%% ###### 首单同向马丁 ######
+#%%
 # ###### 单次回测主要函数 ######
-# 之前推进分析手工建立的目录******
-FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\3.筛选后修复和加仓.1SynD.2016-07-01.2023-01-01.IC"
 # ------通用分析套件参数------
 def common_set():
     myMT5run.input_set("FrameMode", "2")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
+    myMT5run.input_set("Inp_CustomMode", "25") # 25-MaxRelativeDDPct
 
+#---同向
 def strategy_set1(): # Repair_ExpandPoint
     myMT5run.input_set("Inp_FirstRepairSynD", "true||false||0||true||N")
     myMT5run.input_set("Inp_RepairMode", "1||0||0||3||N")
@@ -120,7 +120,32 @@ def strategy_set3(): # Repair_ATRMulti
     myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||N")
     myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||Y")
 
-#%%
+#---异向
+def strategy_set4(): # Repair_ExpandPoint
+    myMT5run.input_set("Inp_FirstRepairSynD", "false||false||0||true||N")
+    myMT5run.input_set("Inp_RepairMode", "1||0||0||3||N")
+    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||Y")
+    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||N")
+    myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||N")
+
+def strategy_set5(): # Repairt_FixedPointStart
+    myMT5run.input_set("Inp_FirstRepairSynD", "false||false||0||true||N")
+    myMT5run.input_set("Inp_RepairMode", "2||0||0||3||N")
+    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||N")
+    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||Y")
+    myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||N")
+
+def strategy_set6(): # Repair_ATRMulti
+    myMT5run.input_set("Inp_FirstRepairSynD", "false||false||0||true||N")
+    myMT5run.input_set("Inp_RepairMode", "3||0||0||3||N")
+    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||N")
+    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||N")
+    myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||Y")
+
+
+#%% ###### 首次修复同向 ######
+# 之前推进分析手工建立的目录******
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\3.筛选后修复和加仓.1SynD.2016-07-01.2023-01-01.IC"
 ##%%
 FwdRprAd.prepare(common_set, strategy_set1)
 FwdRprAd.repair_opt("Repair_ExpandPoint")
@@ -134,46 +159,19 @@ FwdRprAd.prepare(common_set, strategy_set3)
 FwdRprAd.repair_opt("Repair_ATRMulti")
 
 
-#%% ###### 首单异向马丁 ######
-# ###### 单次回测主要函数 ######
+#%% ###### 首次修复异向 ######
 # 之前推进分析手工建立的目录******
 FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\3.筛选后修复和加仓.1ReverD.2016-07-01.2023-01-01.IC"
-# ------通用分析套件参数------
-def common_set():
-    myMT5run.input_set("FrameMode", "2")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
-
-def strategy_set1(): # Repair_ExpandPoint
-    myMT5run.input_set("Inp_FirstRepairSynD", "false||false||0||true||N")
-    myMT5run.input_set("Inp_RepairMode", "1||0||0||3||N")
-    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||Y")
-    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||N")
-    myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||N")
-
-def strategy_set2(): # Repairt_FixedPointStart
-    myMT5run.input_set("Inp_FirstRepairSynD", "false||false||0||true||N")
-    myMT5run.input_set("Inp_RepairMode", "2||0||0||3||N")
-    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||N")
-    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||Y")
-    myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||N")
-
-def strategy_set3(): # Repair_ATRMulti
-    myMT5run.input_set("Inp_FirstRepairSynD", "false||false||0||true||N")
-    myMT5run.input_set("Inp_RepairMode", "3||0||0||3||N")
-    myMT5run.input_set("Repair_ExpandPoint", "200||50||10||400||N")
-    myMT5run.input_set("Repairt_FixedPointStart", "200||50||10||400||N")
-    myMT5run.input_set("Repair_ATRMulti", "2.0||1.0||0.1||4.0||Y")
-
-#%%
 ##%%
-FwdRprAd.prepare(common_set, strategy_set1)
+FwdRprAd.prepare(common_set, strategy_set4)
 FwdRprAd.repair_opt("Repair_ExpandPoint")
 
 ##%%
-FwdRprAd.prepare(common_set, strategy_set2)
+FwdRprAd.prepare(common_set, strategy_set5)
 FwdRprAd.repair_opt("Repair_FixedPointStart")
 
 ##%%
-FwdRprAd.prepare(common_set, strategy_set3)
+FwdRprAd.prepare(common_set, strategy_set6)
 FwdRprAd.repair_opt("Repair_ATRMulti")
 
 

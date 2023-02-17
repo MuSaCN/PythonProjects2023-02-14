@@ -131,7 +131,7 @@ def common_set3():
     myMT5run.input_set("FrameMode", "2")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
 
 def strategy_set3(symbol):
-    myMT5run.input_set("Inp_MainSymbol", "{}"%symbol)
+    myMT5run.input_set("Inp_MainSymbol", "{}".format(symbol))
     myMT5run.input_set("MainTF", "0||5||0||16388||N")
 
 

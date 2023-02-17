@@ -129,4 +129,4 @@ FwdOpt.prepare(common_set, strategy_set)
 #---测试下哪个优化标准更能找到好策略
 # -1 -- Complete, 0 -- Balance max, 1 -- Profit Factor max, 2 -- Expected Payoff max, 3 -- Drawdown min, 4 -- Recovery Factor max, 5 -- Sharpe Ratio max, 6 -- Custom max, 7 -- Complex Criterion max.
 print("run0")
-FwdOpt.run(0)
+FwdOpt.run(0, shutdownterminal=1)

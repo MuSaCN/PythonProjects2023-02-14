@@ -64,8 +64,8 @@ myDefault.set_backend_default("Pycharm")  # Pycharm下需要plt.show()才显示�
 
 # %%
 ''' 
-需要有对应的EA文件，比如 a1.f3._Symbol.M30.ex5，且要设置主要时间框 MainTF 的外部参数！
-其中品种鲁棒性需要有对应文件，比如 a1.f3.EURUSD.M30.ex5，内部要指定好 FileSymbol 参数.
+# 单次回测和时间框鲁棒性有对应的EA文件，比如 a1.f3._Symbol.M30.ex5，且要设置主要时间框 MainTF 的外部参数，内部要指定好 FileSymbol 参数！
+# 品种鲁棒性需要有对应文件，比如 a1.f3._Symbol.M30.ex5，且要设置主要时间框 Inp_MainSymbol 的外部参数。且要求 strategy_set3(symbol) 有symbol参数！
 '''
 import warnings
 warnings.filterwarnings('ignore')
@@ -98,7 +98,7 @@ FwdRob.bt_reportfolder3 = FwdRob.bt_folder + r"\Symbol鲁棒性.{}_{}".format(Fw
 # (***)推进回测EA的目录(后面不能带\\)和文件名(***)
 FwdRob.bt_experfolder = "My_Experts\\Strategy深度研究\\3.包络线振荡策略\\推进交易.2Y6M"
 # (***)ex5的名称格式(***)，要修改
-
+FwdRob.bt_expertnameform = "a1.f3._Symbol.{}.ex5" # 必须是 a1.f5._Symbol.M15 或 a1.f5.EURUSD.M15 格式，最后1个{}对应时间框词缀 或 两个{}对应品种.时间框词缀.
 
 # (***)回测的设置(***)，一般只要修改 delays
 FwdRob.bt_forwardmode = 0  # 向前检测 (0 "No", 1 "1/2", 2 "1/3", 3 "1/4", 4 "Custom")
@@ -130,28 +130,26 @@ def strategy_set2():
 def common_set3():
     myMT5run.input_set("FrameMode", "2")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
 
-def strategy_set3():
+def strategy_set3(symbol):
+    myMT5run.input_set("Inp_MainSymbol", "{}"%symbol)
     myMT5run.input_set("MainTF", "0||5||0||16388||N")
 
 
 
 
 #%% ### 单次回测 ###
-FwdRob.bt_expertnameform = "a1.f3._Symbol.{}.ex5" # 必须是 a1.f5._Symbol.M15 或 a1.f5.EURUSD.M15 格式，最后1个{}对应时间框词缀 或 两个{}对应品种.时间框词缀.
 FwdRob.prepare(common_set1, strategy_set1)
 FwdRob.symbollist_backtest()
 
 #%% ### 时间框鲁棒性 ###
-FwdRob.bt_expertnameform = "a1.f3._Symbol.{}.ex5" # 必须是 a1.f5._Symbol.M15 或 a1.f5.EURUSD.M15 格式，最后1个{}对应时间框词缀 或 两个{}对应品种.时间框词缀.
 FwdRob.prepare(common_set2, strategy_set2)
 FwdRob.tf_robustness()
 
-#%% ### 品种鲁棒性 ###
+#%% ### 品种鲁棒性，要求 strategy_set(symbol) 有symbol参数！###
 # 注意全品种测试时，EA内部参数要符合相应的条件才行！
 # 有bug输出内容为空，所以不自动关闭MT5.
-FwdRob.bt_expertnameform = "a1.f3.{}{}.ex5" # 必须是 a1.f5._Symbol.M15 或 a1.f5.EURUSD.M15 格式，最后1个{}对应时间框词缀 或 两个{}对应品种.时间框词缀.
 FwdRob.prepare(common_set3, strategy_set3)
-FwdRob.symbol_robustness(shutdownterminal=1)
+FwdRob.symbol_robustness(shutdownterminal=0)
 
 
 

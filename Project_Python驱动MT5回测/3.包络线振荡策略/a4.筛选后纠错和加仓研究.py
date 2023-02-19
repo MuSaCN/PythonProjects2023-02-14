@@ -148,15 +148,15 @@ def strategy_set6(): # Repair_ATRMulti
 FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\3.筛选后修复和加仓.1SynD.2016-07-01.2023-01-01.IC"
 ##%%
 FwdRprAd.prepare(common_set, strategy_set1)
-FwdRprAd.repair_opt("Repair_ExpandPoint")
+FwdRprAd.repair_opt(affix="Repair_ExpandPoint", deposit=2000)
 
 ##%%
 FwdRprAd.prepare(common_set, strategy_set2)
-FwdRprAd.repair_opt("Repair_FixedPointStart")
+FwdRprAd.repair_opt(affix="Repair_FixedPointStart", deposit=2000)
 
 ##%%
 FwdRprAd.prepare(common_set, strategy_set3)
-FwdRprAd.repair_opt("Repair_ATRMulti")
+FwdRprAd.repair_opt(affix="Repair_ATRMulti", deposit=2000)
 
 
 #%% ###### 首次修复异向 ######
@@ -164,15 +164,15 @@ FwdRprAd.repair_opt("Repair_ATRMulti")
 FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\3.筛选后修复和加仓.1ReverD.2016-07-01.2023-01-01.IC"
 ##%%
 FwdRprAd.prepare(common_set, strategy_set4)
-FwdRprAd.repair_opt("Repair_ExpandPoint")
+FwdRprAd.repair_opt(affix="Repair_ExpandPoint", deposit=2000)
 
 ##%%
 FwdRprAd.prepare(common_set, strategy_set5)
-FwdRprAd.repair_opt("Repair_FixedPointStart")
+FwdRprAd.repair_opt(affix="Repair_FixedPointStart", deposit=2000)
 
 ##%%
 FwdRprAd.prepare(common_set, strategy_set6)
-FwdRprAd.repair_opt("Repair_ATRMulti")
+FwdRprAd.repair_opt(affix="Repair_ATRMulti", deposit=2000)
 
 
 

@@ -72,14 +72,10 @@ FwdAuto = MyClass_ForwardAutoParse()
 FwdAuto.expertfile = "a1.箱体回调策略.ex5"
 FwdAuto.contentfolder = r"F:\BaiduNetdiskWorkspace\工作---MT5策略研究\7.箱体回调策略" # 输出的总目录******
 # (***)根据基础EA源码的Input变量的顺序来整理下面参数名(***)
-FwdAuto.ea_inputparalist = ["MaxBoxPeriod", "OsciBoxPeriod", "K_TrendBuyU", "K_TrendBuyD", "TrendGap",
-                    "K_OsciBuyLevel", "OsciGap", "CloseBuyLevel"]
+FwdAuto.ea_inputparalist = ["MaxBoxPeriod", "OsciBoxPeriod", "K_TrendBuyU", "K_TrendBuyD", "TrendGap","K_OsciBuyLevel", "OsciGap", "CloseBuyLevel"]
 
 
 FwdAuto.symbollist = ["EURUSD", "GBPUSD", "USDCHF", "USDJPY", "USDCAD", "AUDUSD", "AUDNZD", "AUDCAD", "AUDCHF", "AUDJPY", "GBPJPY", "CHFJPY", "EURGBP", "EURAUD", "EURCHF", "EURJPY", "EURNZD", "EURCAD", "GBPCHF", "USDSGD", "CADCHF", "CADJPY", "GBPAUD", "GBPCAD", "GBPNZD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD", "XAUUSD", "XAGUSD"] # 策略的品种列表******
-symbolalready = ["EURUSD", "GBPUSD", "AUDUSD", "NZDUSD", "USDJPY", "USDCAD", "USDCHF", "XAUUSD", "XAGUSD", "AUDJPY","CHFJPY","EURAUD","EURCAD","EURCHF","EURGBP","EURJPY","GBPAUD","GBPCAD","GBPCHF","GBPJPY","NZDJPY"]
-symbolneed = ['AUDNZD', 'AUDCAD', 'AUDCHF', 'EURNZD', 'USDSGD', 'CADCHF', 'CADJPY', 'GBPNZD', 'NZDCAD', 'NZDCHF']
-FwdAuto.symbollist = symbolneed
 
 FwdAuto.timeframe = "TIMEFRAME_M15" # 策略的时间框******
 

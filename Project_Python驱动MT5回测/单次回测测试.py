@@ -62,6 +62,9 @@ myDefault.set_backend_default("Pycharm")  # Pycharm下需要plt.show()才显示�
 # warnings.filterwarnings('ignore')
 
 # %%
+myMT5run.__init__()
+myMT5run.default_config()
+
 bt_expertname = "moving_average_with_frames.ex5"
 symbol = "EURUSD"
 bt_reportfile = __mypath__.get_desktop_path() + "\\test\\test.xml"

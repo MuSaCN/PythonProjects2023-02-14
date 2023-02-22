@@ -75,9 +75,8 @@ FwdParse.contentfolder = r"F:\BaiduNetdiskWorkspace\工作---MT5策略研究\7.�
 FwdParse.ea_inputparalist = ["MaxBoxPeriod", "OsciBoxPeriod", "K_TrendBuyU", "K_TrendBuyD",
                              "TrendGap","K_OsciBuyLevel", "OsciGap", "CloseBuyLevel"]
 
-
 # ["EURUSD", "GBPUSD", "USDCHF", "USDJPY", "USDCAD", "AUDUSD", "AUDNZD", "AUDCAD", "AUDCHF", "AUDJPY", "GBPJPY", "CHFJPY", "EURGBP", "EURAUD", "EURCHF", "EURJPY", "EURNZD", "EURCAD", "GBPCHF", "USDSGD", "CADCHF", "CADJPY", "GBPAUD", "GBPCAD", "GBPNZD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD", "XAUUSD", "XAGUSD"]
-FwdParse.symbol = "CADJPY" # ******
+FwdParse.symbol = "XAUUSD" # ******
 FwdParse.timeframe = "TIMEFRAME_M15" # ******
 FwdParse.starttime = "2015.01.01" # 推进分析数据的开始时间******
 FwdParse.endtime = "2023.01.01" # 推进分析数据的结束时间(最后一个格子只做优化，不做推进)******
@@ -103,9 +102,9 @@ FwdParse.get_timedf_matchlist_and_violent()
  '(int)最长亏损序列', '最长亏损序列额($)', '最大的连利($)', '(int)最大的连利序列数',
  '最大的连亏($)', '(int)最大的连亏序列数']
 # ---训练集根据sortby降序排序后，从中选择count个行，再根据chooseby选择前n个最大值，再根据resultby表示结果.
-sortby = "%无仓GHPR_Loss" # "Kelly占用仓位杠杆" "myCriterion" "盈亏比" "平均盈利" "盈利总和" "盈利交易数量"
+sortby = "AHPR" # "Kelly占用仓位杠杆" "myCriterion" "盈亏比" "平均盈利" "盈利总和" "盈利交易数量"
 count = 0.5  # 0.5一半，-1全部。注意有时候遗传算法导致结果太少，所以用-1更好
-chooseby = "LRCorrelation" # "TB"
+chooseby = "Vince止损仓位比率" # "TB"
 n = 5
 resultlist=["TB", "净利润"]
 

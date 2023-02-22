@@ -66,7 +66,7 @@ myMT5run.__init__()
 myMT5run.default_config()
 
 bt_expertname = "moving_average_with_frames.ex5"
-symbol = "EURUSD"
+symbol = "AUDJPY"
 bt_reportfile = __mypath__.get_desktop_path() + "\\test\\test.xml"
 
 
@@ -79,7 +79,7 @@ def strategy_set(): # Repair_ExpandPoint
 
 #%%
 myMT5run.__init__()
-myMT5run.config_Tester(bt_expertname, symbol, "TIMEFRAME_H1",
+myMT5run.config_Tester(bt_expertname, symbol, "TIMEFRAME_M15",
                        fromdate="2020.01.01", todate="2022.01.01",
                        forwardmode=0, forwarddate=None,
                        delays=0, model=1,

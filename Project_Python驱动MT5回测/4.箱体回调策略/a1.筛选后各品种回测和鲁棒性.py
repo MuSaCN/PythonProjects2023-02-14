@@ -99,7 +99,7 @@ FwdRob.bt_experfolder = "My_Experts\\Strategy深度研究\\4.箱体回调策略\
 FwdRob.bt_forwardmode = 0  # 向前检测 (0 "No", 1 "1/2", 2 "1/3", 3 "1/4", 4 "Custom")
 FwdRob.bt_model = 1  # 0 "每笔分时", 1 "1 分钟 OHLC", 2 "仅开盘价", 3 "数学计算", 4 "每个点基于实时点"
 FwdRob.profitinpips = 0 # profitinpips = 1 用pips作为利润，不用具体的货币。0用具体货币，且考虑佣金
-FwdRob.delays = 230 # ******
+FwdRob.delays = 0 # ******
 
 
 #%%

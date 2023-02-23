@@ -69,7 +69,7 @@ from MyPackage.MyProjects.MT5推进分析.ForwardRepairAdd import MyClass_Forwar
 FwdRprAd = MyClass_ForwardRepairAdd()
 
 # (***)推进回测(***)
-FwdRprAd.symbollist = ["AUDJPY","AUDNZD","GBPCAD","USDCHF"] # 策略的品种列表******
+FwdRprAd.symbollist = ["AUDJPY","GBPCAD","USDCHF"] # 策略的品种列表******
 FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
 FwdRprAd.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
 FwdRprAd.bt_endtime = "2023.02.17"  # 手动指定******，一般为最近的时间

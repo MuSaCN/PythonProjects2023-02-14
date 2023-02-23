@@ -74,7 +74,7 @@ FwdRob = MyClass_ForwardRobustness()
 
 # (***)推进回测(***)
 FwdRob.symbollist = ["EURUSD", "GBPUSD", "USDCHF", "USDJPY", "USDCAD", "AUDUSD", "AUDNZD", "AUDCAD", "AUDCHF", "AUDJPY", "GBPJPY", "CHFJPY", "EURGBP", "EURAUD", "EURCHF", "EURJPY", "EURNZD", "EURCAD", "GBPCHF", "USDSGD", "CADCHF", "CADJPY", "GBPAUD", "GBPCAD", "GBPNZD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD", "XAUUSD", "XAGUSD"] # 策略的品种列表******
-FwdRob.symbollist = ["AUDCHF","AUDJPY","CADJPY","EURCHF","EURJPY","EURNZD","EURUSD","GBPCAD","GBPCHF","GBPNZD","GBPUSD","NZDUSD","USDCHF","XAUUSD"] # 筛选的品种******
+FwdRob.symbollist = ["AUDJPY","AUDNZD","EURUSD","GBPCAD","USDCHF"] # 筛选的品种******
 
 
 

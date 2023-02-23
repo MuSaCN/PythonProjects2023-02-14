@@ -72,7 +72,7 @@ FwdRprAd = MyClass_ForwardRepairAdd()
 FwdRprAd.symbollist = ["AUDJPY","GBPCAD","USDCHF"] # 策略的品种列表******
 FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
 FwdRprAd.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
-FwdRprAd.bt_endtime = "2023.02.17"  # 手动指定******，一般为最近的时间
+FwdRprAd.bt_endtime = "2023.02.23"  # 手动指定******，一般为最近的时间
 
 # (***)输出目录(***)
 # 输出的总目录******

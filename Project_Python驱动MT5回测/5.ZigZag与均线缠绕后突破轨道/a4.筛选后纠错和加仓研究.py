@@ -98,6 +98,7 @@ FwdRprAd.bt_optimization = 1  #  0 禁用优化, 1 "慢速完整算法", 2 "快�
 # ------通用分析套件参数------
 def common_set():
     myMT5run.input_set("FrameMode", "2")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
+    myMT5run.input_set("Inp_CustomMode", "24") # 24-MarginMin, 25-MaxRelativeDDPct
 
 def strategy_set1(): # Repair_ExpandPoint
     myMT5run.input_set("Inp_RepairMode", "1||0||0||3||N")

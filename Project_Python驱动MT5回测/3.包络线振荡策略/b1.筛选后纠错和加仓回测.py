@@ -62,7 +62,7 @@ myDefault.set_backend_default("Pycharm")  # Pycharm下需要plt.show()才显示�
 # warnings.filterwarnings('ignore')
 
 #%%
-''' 需要有对应的EA文件，比如 a4.f5.EURUSD.M15.ex5，且要写好 tag参数 和 Bool_SideReSignal 参数. '''
+''' 需要有对应的EA文件，比如 a4.f5.EURUSD.M15.ex5，且要写好 Inp_TestLastTag 和 Inp_InitReSignal 参数. '''
 import warnings
 warnings.filterwarnings('ignore')
 from MyPackage.MyProjects.MT5推进分析.ForwardRepairAdd import MyClass_ForwardRepairAdd, myMT5run
@@ -101,22 +101,24 @@ FwdRprAd.bt_profitinpips = 0 # 1 用pips作为利润。0用具体货币，且考
 def common_set():
     myMT5run.input_set("FrameMode", "1")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
 
-def strategy_set1():
-    myMT5run.input_set("Bool_SideReSignal", "true")
-    # pass
 
-def strategy_set2():
-    myMT5run.input_set("Bool_SideReSignal", "false")
-    # pass
-
-#%% Bool_SideReSignal=true
-FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.1.同向重复"
+#%%
+def strategy_set1(): # true会允许同向Init重复入场
+    myMT5run.input_set("Inp_InitReSignal", "true")
+FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "4.各品种最后回测.1.同向重复"
 FwdRprAd.prepare(common_set, strategy_set1)
 FwdRprAd.last_backtest(deposit=2000)
 
-
-#%% Bool_SideReSignal=false
-FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.2.同向不重复"
+#%%
+def strategy_set2(): # false不允许同向Init重复入场，默认
+    myMT5run.input_set("Inp_InitReSignal", "false")
+FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "4.各品种最后回测.2.同向不重复(default)"
 FwdRprAd.prepare(common_set, strategy_set2)
 FwdRprAd.last_backtest(deposit=2000)
 
+#%%
+def strategy_set3(): # true会只测试最新的推进参数组
+    myMT5run.input_set("Inp_TestLastTag", "true")
+FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "4.各品种最后回测.3.tag=-1"
+FwdRprAd.prepare(common_set, strategy_set3)
+FwdRprAd.last_backtest(deposit=2000)

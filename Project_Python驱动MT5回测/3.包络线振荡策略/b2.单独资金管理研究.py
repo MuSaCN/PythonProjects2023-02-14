@@ -62,7 +62,10 @@ myDefault.set_backend_default("Pycharm")  # Pycharm下需要plt.show()才显示�
 # warnings.filterwarnings('ignore')
 
 #%%
-''' 需要有对应的EA文件，比如 a4.f5.EURUSD.M15.ex5，且要写好 Inp_TestLastTag 和 Inp_InitReSignal 参数. '''
+''' 
+需要有对应的EA文件，比如 a4.f5.EURUSD.M15.ex5，且要写好 Inp_TestLastTag 和 Inp_InitReSignal 参数.
+会测试各个品种的坏区间！ 
+'''
 import warnings
 warnings.filterwarnings('ignore')
 from MyPackage.MyProjects.MT5推进分析.ForwardRepairAdd import MyClass_ForwardRepairAdd, myMT5run

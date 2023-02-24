@@ -68,21 +68,17 @@ warnings.filterwarnings('ignore')
 from MyPackage.MyProjects.MT5推进分析.ForwardRepairAdd import MyClass_ForwardRepairAdd, myMT5run
 FwdRprAd = MyClass_ForwardRepairAdd()
 
-# (***)推进回测(***)
-FwdRprAd.symbollist = ["AUDJPY","GBPCAD","USDCHF"] # 策略的品种列表******
-# FwdRprAd.symbollist = ["GBPJPY"] # 策略的品种列表******
-FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
-FwdRprAd.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
-FwdRprAd.bt_endtime = "2023.02.23"  # 手动指定******，一般为最近的时间
+# # (***)推进回测(***)
+# FwdRprAd.symbollist = ["AUDJPY","USDCHF"] # 策略的品种列表******
+# FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
+# FwdRprAd.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
+# FwdRprAd.bt_endtime = "2023.02.23"  # 手动指定******，一般为最近的时间
 
 # (***)输出目录(***)
 # 输出的总目录******
 FwdRprAd.contentfolder = r"F:\BaiduNetdiskWorkspace\工作---MT5策略研究\6.包络线振荡策略"
 # 之前推进分析手工建立的目录******
-FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\3.筛选后修复和加仓.2016-07-01.2023-01-01.IC"
-
-# FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测(tag=-1)" # tag=-1EA设置好******
-# FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测_2.同向不可重复持仓"
+# FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.单独资金管理.2016-07-01.2023-01-01"
 
 
 # (***)推进回测EA的目录(后面不能带\\)和文件名(***)
@@ -95,38 +91,80 @@ FwdRprAd.bt_model = 1  # 0 "每笔分时", 1 "1 分钟 OHLC", 2 "仅开盘价", 
 FwdRprAd.bt_profitinpips = 0 # 1 用pips作为利润。0用具体货币，且考虑佣金，0容易出问题。
 
 
+
 #%%
 # ###### 单次回测主要函数 ######
 # ------通用分析套件参数------
 def common_set():
-    myMT5run.input_set("FrameMode", "1")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
+    myMT5run.input_set("FrameMode", "2")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
+    myMT5run.input_set("Inp_CustomMode", "24")  # 24-MarginMin, 25-MaxRelativeDDPct
+def strategy_set1(): # SplitFund
+    myMT5run.input_set("Inp_MM_Mode", "3||0||0||8||N") # SplitFund
+    myMT5run.input_set("Inp_Lots_IncreDelta", "100||100||50||2000||Y")
+    myMT5run.input_set("Inp_Lots_IncreInitLots", "0.01||0.1||0.010000||1.000000||N")
+def strategy_set2(): # SplitFormula
+    myMT5run.input_set("Inp_MM_Mode", "4||0||0||8||N") # SplitFormula
+    myMT5run.input_set("Inp_Lots_IncreDelta", "100||100||50||2000||Y")
+    myMT5run.input_set("Inp_Lots_IncreInitLots", "0.01||0.1||0.010000||1.000000||N")
+def strategy_set3(): # StepBalanceRatio
+    myMT5run.input_set("Inp_MM_Mode", "8||0||0||8||N") # SplitFormula
+    myMT5run.input_set("Inp_Lots_BasicEveryLot", "200000||5000.0||500.000000||50000.000000||N")
+    myMT5run.input_set("Inp_Lots_BasicStep", "2000||500||100||2000||Y")
+def strategy_set4(): # StepBalanceRatio
+    myMT5run.input_set("Inp_MM_Mode", "7||0||0||8||N") # OccupyMarginPct
+    myMT5run.input_set("Inp_Lots_SLRiskPercent", "0.01||0.005||0.001||0.02||Y")
+
+# ---各模式的资金管理优化
+def Run_MM():
+    #%% ### SplitFund
+    # (***)不同模式不同保存目录(***)
+    FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "SplitFund"
+    FwdRprAd.prepare(common_set, strategy_set1)
+    FwdRprAd.money_management_opt(deposit=2000, shutdownterminal=1)
+
+    #%% ### SplitFormula
+    # (***)不同模式不同保存目录(***)
+    FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "SplitFormula"
+    FwdRprAd.prepare(common_set, strategy_set2)
+    FwdRprAd.money_management_opt(deposit=2000, shutdownterminal=1)
+
+    #%% ### SplitFormula
+    # (***)不同模式不同保存目录(***)
+    FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "StepBalanceRatio"
+    FwdRprAd.prepare(common_set, strategy_set3)
+    FwdRprAd.money_management_opt(deposit=2000, shutdownterminal=1)
+
+    #%% ### OccupyMarginPct
+    # (***)不同模式不同保存目录(***)
+    FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "OccupyMarginPct"
+    FwdRprAd.prepare(common_set, strategy_set4)
+    FwdRprAd.money_management_opt(deposit=2000, shutdownterminal=1)
+
+#%% 坏区间测试
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.单独资金管理.2016-07-01.2023-01-01\AUDJPY坏区间"
+# (***)推进回测(***)
+FwdRprAd.symbollist = ["AUDJPY"] # 策略的品种列表******
+FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
+FwdRprAd.bt_starttime = "2022.03.01"  # 手动指定******，一般为推进样本外的起始
+FwdRprAd.bt_endtime = "2022.05.20"  # 手动指定******，一般为最近的时间
+Run_MM()
+
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.单独资金管理.2016-07-01.2023-01-01\USDCHF坏区间"
+# (***)推进回测(***)
+FwdRprAd.symbollist = ["USDCHF"] # 策略的品种列表******
+FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
+FwdRprAd.bt_starttime = "2020.11.24"  # 手动指定******，一般为推进样本外的起始
+FwdRprAd.bt_endtime = "2020.12.10"  # 手动指定******，一般为最近的时间
+Run_MM()
 
 
-#%%
-def strategy_set1(): # true会允许同向Init重复入场
-    myMT5run.input_set("Inp_InitReSignal", "true")
-FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.1.同向重复"
-FwdRprAd.prepare(common_set, strategy_set1)
-FwdRprAd.last_backtest(deposit=2000, shutdownterminal=1)
+#%% 全体测试
+# 之前推进分析手工建立的目录******
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.单独资金管理.2016-07-01.2023-01-01"
+# (***)推进回测(***)
+FwdRprAd.symbollist = ["AUDJPY","USDCHF"] # 策略的品种列表******
+FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
+FwdRprAd.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
+FwdRprAd.bt_endtime = "2023.02.23"  # 手动指定******，一般为最近的时间
+Run_MM()
 
-#%%
-def strategy_set2(): # false不允许同向Init重复入场，默认
-    myMT5run.input_set("Inp_InitReSignal", "false")
-FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.2.同向不重复(default)"
-FwdRprAd.prepare(common_set, strategy_set2)
-FwdRprAd.last_backtest(deposit=2000, shutdownterminal=1)
-
-#%%
-def strategy_set3(): # true会只测试最新的推进参数组
-    myMT5run.input_set("Inp_TestLastTag", "true")
-FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.3.tag=-1"
-FwdRprAd.prepare(common_set, strategy_set3)
-FwdRprAd.last_backtest(deposit=2000, shutdownterminal=1)
-
-#%% 用于研究坏区间
-FwdRprAd.symbollist = ["AUDJPY","USDCHF"]
-def strategy_set4(): # false不允许同向Init重复入场，默认
-    myMT5run.input_set("Inp_InitReSignal", "false")
-FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.2.同向不重复(default)"
-FwdRprAd.prepare(common_set, strategy_set4)
-FwdRprAd.last_backtest(deposit=2000, shutdownterminal=0)

@@ -106,32 +106,32 @@ FwdRprAd.prepare(common_set, strategy_set)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\FXTM_1"
-FwdRprAd.multibroker_backtest(server="ForexTimeFXTM-Live01", login="10545318")
+FwdRprAd.multibroker_backtest(server="ForexTimeFXTM-Live01", login="10545318", deposit=2000)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\FXTM_2"
-FwdRprAd.multibroker_backtest(server="ForexTimeFXTM-Live02", login="52009289")
+FwdRprAd.multibroker_backtest(server="ForexTimeFXTM-Live02", login="52009289", deposit=2000)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Just2Trade"
-FwdRprAd.multibroker_backtest(server="Just2Trade-MT5", login="467187")
+FwdRprAd.multibroker_backtest(server="Just2Trade-MT5", login="467187", deposit=2000)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\ICMarkets_1"
-FwdRprAd.multibroker_backtest(server="ICMarketsSC-MT5-2", login="7156029")
+FwdRprAd.multibroker_backtest(server="ICMarketsSC-MT5-2", login="7156029", deposit=2000)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\ICMarkets_2"
-FwdRprAd.multibroker_backtest(server="ICMarketsSC-MT5-2", login="7148876")
+FwdRprAd.multibroker_backtest(server="ICMarketsSC-MT5-2", login="7148876", deposit=2000)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Swissquote"
-FwdRprAd.multibroker_backtest(server="Swissquote-Server", login="6109792")
+FwdRprAd.multibroker_backtest(server="Swissquote-Server", login="6109792", deposit=2000)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Alpari"
-FwdRprAd.multibroker_backtest(server="Alpari-MT5", login="15097200")
+FwdRprAd.multibroker_backtest(server="Alpari-MT5", login="15097200", deposit=2000)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Exness"
-FwdRprAd.multibroker_backtest(server="Exness-MT5Real5", login="59325619")
+FwdRprAd.multibroker_backtest(server="Exness-MT5Real5", login="59325619", deposit=2000)

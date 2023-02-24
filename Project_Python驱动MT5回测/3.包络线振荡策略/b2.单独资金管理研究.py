@@ -144,7 +144,7 @@ def Run_MM():
     FwdRprAd.money_management_opt(deposit=2000, shutdownterminal=1)
 
 #%% 坏区间测试
-FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.单独资金管理.2016-07-01.2023-01-01\AUDJPY坏区间"
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.单独资金管理.2016-07-01.2023-01-01\坏区间_AUDJPY"
 # (***)推进回测(***)
 FwdRprAd.symbollist = ["AUDJPY"] # 策略的品种列表******
 FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
@@ -152,7 +152,7 @@ FwdRprAd.bt_starttime = "2022.03.01"  # 手动指定******，一般为推进样�
 FwdRprAd.bt_endtime = "2022.05.20"  # 手动指定******，一般为最近的时间
 Run_MM()
 
-FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.单独资金管理.2016-07-01.2023-01-01\USDCHF坏区间"
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.单独资金管理.2016-07-01.2023-01-01\坏区间_USDCHF"
 # (***)推进回测(***)
 FwdRprAd.symbollist = ["USDCHF"] # 策略的品种列表******
 FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******

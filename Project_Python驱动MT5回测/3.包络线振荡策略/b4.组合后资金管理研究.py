@@ -128,19 +128,19 @@ def Run_CombineMM():
     # (***)不同模式不同保存目录(***)
     FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "SplitFormula"
     FwdRprAd.prepare(common_set, strategy_set2)
-    FwdRprAd.money_management_opt(symbol="AUDJPY", optimization=1, deposit=2000, shutdownterminal=1)
+    FwdRprAd.combine_symbol_opt(symbol="AUDJPY", optimization=1, deposit=2000, shutdownterminal=1)
 
     #%% ### SplitFormula
     # (***)不同模式不同保存目录(***)
     FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "StepBalanceRatio"
     FwdRprAd.prepare(common_set, strategy_set3)
-    FwdRprAd.money_management_opt(symbol="AUDJPY", optimization=1, deposit=2000, shutdownterminal=1)
+    FwdRprAd.combine_symbol_opt(symbol="AUDJPY", optimization=1, deposit=2000, shutdownterminal=1)
 
     #%% ### OccupyMarginPct
     # (***)不同模式不同保存目录(***)
     FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "OccupyMarginPct"
     FwdRprAd.prepare(common_set, strategy_set4)
-    FwdRprAd.money_management_opt(symbol="AUDJPY", optimization=1, deposit=2000, shutdownterminal=1)
+    FwdRprAd.combine_symbol_opt(symbol="AUDJPY", optimization=1, deposit=2000, shutdownterminal=1)
 
 #%% 坏区间测试
 FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\5.单独资金管理.2016-07-01.2023-01-01\坏区间_AUDJPY"

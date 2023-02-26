@@ -143,7 +143,7 @@ def Run_CombineMM():
     FwdRprAd.combine_symbol_opt(symbol="AUDJPY", optimization=1, deposit=2000, shutdownterminal=1)
 
 #%% 坏区间测试
-FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\5.单独资金管理.2016-07-01.2023-01-01\坏区间_AUDJPY"
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\5.组合资金管理.2016-07-01.2023-01-01\坏区间_AUDJPY"
 # (***)推进回测(***)
 FwdRprAd.symbollist = ["AUDJPY"] # 策略的品种列表******
 FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
@@ -151,7 +151,7 @@ FwdRprAd.bt_starttime = "2022.03.01"  # 手动指定******，一般为推进样�
 FwdRprAd.bt_endtime = "2022.05.20"  # 手动指定******，一般为最近的时间
 Run_CombineMM()
 
-FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\5.单独资金管理.2016-07-01.2023-01-01\坏区间_USDCHF"
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\5.组合资金管理.2016-07-01.2023-01-01\坏区间_USDCHF"
 # (***)推进回测(***)
 FwdRprAd.symbollist = ["USDCHF"] # 策略的品种列表******
 FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
@@ -162,7 +162,7 @@ Run_CombineMM()
 
 #%% 全体测试
 # 之前推进分析手工建立的目录******
-FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\5.单独资金管理.2016-07-01.2023-01-01"
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\5.组合资金管理.2016-07-01.2023-01-01"
 # (***)推进回测(***)
 FwdRprAd.symbollist = ["AUDJPY","USDCHF"] # 策略的品种列表******
 FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******

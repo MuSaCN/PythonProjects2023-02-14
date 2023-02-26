@@ -81,7 +81,7 @@ FwdRprAd.bt_endtime = "2023.02.08"  # 手动指定******，一般为最近的时
 FwdRprAd.contentfolder = r"F:\BaiduNetdiskWorkspace\工作---MT5策略研究\8.ZigZag与均线缠绕后突破轨道"
 # 之前手工建立的目录******
 
-FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.组合.2016-07-01.2023-01-01.IC"
+FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.组合1.2016-07-01.2023-01-01.IC"
 # FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\4.组合.2016-07-01.2023-01-01.IC\敏感品种敏感时段"
 
 
@@ -101,12 +101,12 @@ FwdRprAd.bt_model = 1  # 0 "每笔分时", 1 "1 分钟 OHLC", 2 "仅开盘价", 
 FwdRprAd.bt_profitinpips = 0 # profitinpips = 1 用pips作为利润，不用具体的货币。0用具体货币，且考虑佣金
 
 
-
 #%%
 # ###### 单次回测主要函数 ######
 # ------通用分析套件参数------
 def common_set():
     myMT5run.input_set("FrameMode", "2")  # 0-None 1-BTMoreResult 2-OptResult 3-ToDesk 4-GUI
+    myMT5run.input_set("Inp_CustomMode", "24")  # 24-MarginMin, 25-MaxRelativeDDPct
 
 
 #%% ### SplitFund

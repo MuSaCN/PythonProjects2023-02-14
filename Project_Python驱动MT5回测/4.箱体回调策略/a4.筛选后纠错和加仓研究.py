@@ -71,7 +71,7 @@ FwdRprAd = MyClass_ForwardRepairAdd()
 
 # (***)推进回测(***)
 FwdRprAd.symbollist = ["AUDNZD","CADJPY","CHFJPY","EURUSD","GBPJPY","GBPUSD","USDJPY","XAUUSD"] # 策略的品种列表******
-FwdRprAd.timeframe = "TIMEFRAME_M30" # 策略的时间框******
+FwdRprAd.timeframe = "TIMEFRAME_M15" # 策略的时间框******
 FwdRprAd.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
 FwdRprAd.bt_endtime = "2023.02.23"  # 手动指定******，一般为最近的时间
 
@@ -127,7 +127,7 @@ def strategy_set3(): # Repair_ATRMulti
 FwdRprAd.bt_folder = FwdRprAd.contentfolder + r"\3.筛选后修复和加仓.2016-07-01.2023-01-01.IC"
 ##%%
 FwdRprAd.prepare(common_set, strategy_set1)
-FwdRprAd.repair_opt(affix="Repair_ExpandPoint", deposit=2000)
+FwdRprAd.repair_opt(affix="Repair_ExpandPoint", deposit=2000, shutdownterminal=0)
 
 ##%%
 FwdRprAd.prepare(common_set, strategy_set2)

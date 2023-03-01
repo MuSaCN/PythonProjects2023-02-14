@@ -125,7 +125,7 @@ FwdRprAd.prepare(common_set, strategy_set3)
 FwdRprAd.last_backtest(deposit=2000, shutdownterminal=1)
 
 #%% 用于研究坏区间
-FwdRprAd.symbollist
+FwdRprAd.symbollist = ["AUDNZD","CHFJPY"]
 def strategy_set4(): # false不允许同向Init重复入场，默认
     myMT5run.input_set("Inp_InitReSignal", "false")
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.1.同向不重复(default)"

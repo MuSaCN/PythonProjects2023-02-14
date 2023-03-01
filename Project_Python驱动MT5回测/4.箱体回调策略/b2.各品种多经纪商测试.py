@@ -73,7 +73,7 @@ FwdRprAd = MyClass_ForwardRepairAdd()
 FwdRprAd.symbollist = ["AUDNZD","CHFJPY"] # 策略的品种列表******
 FwdRprAd.timeframe = "TIMEFRAME_M15" # 策略的时间框******
 FwdRprAd.bt_starttime = "2016.07.01"  # 手动指定******，一般为推进样本外的起始
-FwdRprAd.bt_endtime = "2014.01.01"  # 手动指定******，一般为最近的时间
+FwdRprAd.bt_endtime = "2024.01.01"  # 手动指定******，一般为最近的时间
 
 # (***)输出目录(***)
 # 输出的总目录******
@@ -106,33 +106,33 @@ FwdRprAd.prepare(common_set, strategy_set)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\FXTM_1"
-FwdRprAd.multibroker_backtest(server="ForexTimeFXTM-Live01", login="10545318", deposit=2000)
+FwdRprAd.multibroker_backtest(server="ForexTimeFXTM-Live01", login="10545318", deposit=2000, shutdownterminal=1)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\FXTM_2"
-FwdRprAd.multibroker_backtest(server="ForexTimeFXTM-Live02", login="52009289", deposit=2000)
+FwdRprAd.multibroker_backtest(server="ForexTimeFXTM-Live02", login="52009289", deposit=2000, shutdownterminal=1)
 
 #%%
-FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Just2Trade"
-FwdRprAd.multibroker_backtest(server="Just2Trade-MT5", login="467187", deposit=2000)
+# FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Just2Trade"
+# FwdRprAd.multibroker_backtest(server="Just2Trade-MT5", login="467187", deposit=2000, shutdownterminal=0)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\ICMarkets_1"
-FwdRprAd.multibroker_backtest(server="ICMarketsSC-MT5-2", login="7156029", deposit=2000)
+FwdRprAd.multibroker_backtest(server="ICMarketsSC-MT5-2", login="7156029", deposit=2000, shutdownterminal=1)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\ICMarkets_2"
-FwdRprAd.multibroker_backtest(server="ICMarketsSC-MT5-2", login="7148876", deposit=2000)
+FwdRprAd.multibroker_backtest(server="ICMarketsSC-MT5-2", login="7148876", deposit=2000, shutdownterminal=1)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Swissquote"
-FwdRprAd.multibroker_backtest(server="Swissquote-Server", login="6109792", deposit=2000)
+FwdRprAd.multibroker_backtest(server="Swissquote-Server", login="6109792", deposit=2000, shutdownterminal=1)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Alpari"
-FwdRprAd.multibroker_backtest(server="Alpari-MT5", login="15097200", deposit=2000)
+FwdRprAd.multibroker_backtest(server="Alpari-MT5", login="15097200", deposit=2000, shutdownterminal=1)
 
 #%%
 FwdRprAd.bt_reportfolder = FwdRprAd.bt_folder + "\\" + "各品种最后回测.4.多经纪商\\Exness"
-FwdRprAd.multibroker_backtest(server="Exness-MT5Real5", login="59325619", deposit=2000)
+FwdRprAd.multibroker_backtest(server="Exness-MT5Real5", login="59325619", deposit=2000, shutdownterminal=1)
 

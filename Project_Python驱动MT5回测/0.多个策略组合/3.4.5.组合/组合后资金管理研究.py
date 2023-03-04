@@ -128,19 +128,19 @@ def Run_CombineMM():
     # (***)不同模式不同保存目录(***)
     FwdStrgComb.bt_reportfolder = FwdStrgComb.bt_folder + "\\" + "SplitFormula"
     FwdStrgComb.prepare(common_set, strategy_set2)
-    FwdStrgComb.combine_symbol_opt(symbol="AUDNZD", optimization=1, deposit=2000, shutdownterminal=1)
+    FwdStrgComb.combine_symbol_opt(symbol="EURUSD", optimization=1, deposit=2000, shutdownterminal=1)
 
     #%% ### SplitFormula
     # (***)不同模式不同保存目录(***)
     FwdStrgComb.bt_reportfolder = FwdStrgComb.bt_folder + "\\" + "StepBalanceRatio"
     FwdStrgComb.prepare(common_set, strategy_set3)
-    FwdStrgComb.combine_symbol_opt(symbol="AUDNZD", optimization=1, deposit=2000, shutdownterminal=1)
+    FwdStrgComb.combine_symbol_opt(symbol="EURUSD", optimization=1, deposit=2000, shutdownterminal=1)
 
     #%% ### OccupyMarginPct
     # (***)不同模式不同保存目录(***)
     FwdStrgComb.bt_reportfolder = FwdStrgComb.bt_folder + "\\" + "OccupyMarginPct"
     FwdStrgComb.prepare(common_set, strategy_set4)
-    FwdStrgComb.combine_symbol_opt(symbol="AUDNZD", optimization=1, deposit=2000, shutdownterminal=1)
+    FwdStrgComb.combine_symbol_opt(symbol="EURUSD", optimization=1, deposit=2000, shutdownterminal=1)
 
 
 #%% 坏区间测试

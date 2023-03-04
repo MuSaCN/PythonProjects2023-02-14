@@ -85,7 +85,7 @@ FwdStrgComb.contentfolder = r"F:\BaiduNetdiskWorkspace\工作---MT5策略研究\
 
 
 # (***)推进回测EA的目录(后面不能带\\)和文件名(***)
-FwdStrgComb.bt_experfolder = "My_Experts\\Strategy多策略组合"
+FwdStrgComb.bt_experfolder = "My_Experts\\Strategy多策略组合\\3.4.5.组合"
 # (***)ex5的名称格式(***)，要修改
 FwdStrgComb.bt_expertnameform = "3.4.5.组合.ex5" # 必须是 a5.f5.组合.M15 格式，最后{}对应时间框词缀.
 

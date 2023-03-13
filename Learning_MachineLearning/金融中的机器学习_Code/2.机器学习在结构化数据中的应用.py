@@ -153,7 +153,6 @@ def plot_confusion_matrix(cm,
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
 
-
     thresh = cm.max() / 1.5 if normalize else cm.max() / 2
     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
         if normalize:
@@ -165,11 +164,10 @@ def plot_confusion_matrix(cm,
                      horizontalalignment="center",
                      color="white" if cm[i, j] > thresh else "black")
 
-
     plt.tight_layout()
     plt.ylabel('True label')
     plt.xlabel('Predicted label\naccuracy={:0.4f}; misclass={:0.4f}'.format(accuracy, misclass))
-    plt.savefig('confusion.png')
+    # plt.savefig('confusion.png')
     plt.show()
 
 #%%
@@ -238,11 +236,11 @@ plot_confusion_matrix(cm, ['Genuine', 'Fraud'], normalize=False)
 df.shape
 
 # %%
-
+# 折合成24小时
 df['hour'] = df['step'] % 24
 
 # %%
-
+# 按小时统计下欺诈和真实的数量
 frauds = []
 genuine = []
 for i in range(24):
@@ -264,7 +262,8 @@ fr = ax.plot(frauds / np.sum(frauds), dashes=[5, 2], label='Fraud')
 # frgen = ax.plot(np.devide(frauds,genuine),dashes=[1, 1], label='Fraud vs Genuine')
 plt.xticks(np.arange(24))
 legend = ax.legend(loc='upper center', shadow=True)
-fig.savefig('time.png')
+plt.show()
+# fig.savefig('time.png')
 
 # %%
 
@@ -276,32 +275,22 @@ fig, ax = plt.subplots(figsize=(10, 6))
 frgen = ax.plot(np.divide(frauds, np.add(genuine, frauds)), label='Share of fraud')
 plt.xticks(np.arange(24))
 legend = ax.legend(loc='upper center', shadow=True)
-fig.savefig('time_comp.png')
+plt.show()
+# fig.savefig('time_comp.png')
 
 # %%
-
+# 检测诈骗者是否转账提款到他们自己的银行账户
 dfFraudTransfer = df[(df.isFraud == 1) & (df.type == 'TRANSFER')]
-
-# %%
-
 dfFraudCashOut = df[(df.isFraud == 1) & (df.type == 'CASH_OUT')]
-
-# %%
-
+# 从结果看，没有
 dfFraudTransfer.nameDest.isin(dfFraudCashOut.nameOrig).any()
 
 # %%
 
 dfNotFraud = df[(df.isFraud == 0)]
-
-# %%
-
 dfFraud = df[(df.isFraud == 1)]
 
-# %%
-
-dfFraudTransfer.loc[dfFraudTransfer.nameDest.isin(
-    dfNotFraud.loc[dfNotFraud.type == 'CASH_OUT'].nameOrig.drop_duplicates())]
+dfFraudTransfer.loc[dfFraudTransfer.nameDest.isin(dfNotFraud.loc[dfNotFraud.type == 'CASH_OUT'].nameOrig.drop_duplicates())]
 
 # %%
 
@@ -323,7 +312,7 @@ dfOdd = df[(df.oldBalanceDest == 0) &
 len(dfOdd[(dfOdd.isFraud == 1)]) / len(dfOdd)
 
 # %%
-
+# 检测交易的源账户是否有足够的资金
 len(dfOdd[(dfOdd.oldBalanceOrig <= dfOdd.amount)]) / len(dfOdd)
 
 # %%
@@ -343,7 +332,7 @@ dfOdd.head(20)
 df.head()
 
 # %%
-
+# type列全部增加前缀
 df['type'] = 'type_' + df['type'].astype(str)
 
 # %%
@@ -358,10 +347,7 @@ df = pd.concat([df, dummies], axis=1)
 del df['type']
 
 # %% md
-
-Predictive
-modeling
-with Keras
+# Predictive modeling with Keras
 
 # %%
 
@@ -438,7 +424,7 @@ X_train_res, y_train_res = sm.fit_sample(X_train, y_train)
 
 from keras.models import Sequential
 from keras.layers import Dense, Activation
-from keras.optimizers import SGD
+from keras.optimizers import sgd_experimental as SGD
 
 # %%
 

@@ -422,9 +422,9 @@ X_train_res, y_train_res = sm.fit_sample(X_train, y_train)
 
 # %%
 
-from keras.models import Sequential
-from keras.layers import Dense, Activation
-from keras.optimizers import sgd_experimental as SGD
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Dense, Activation
+from tensorflow.keras.optimizers import SGD
 
 # %%
 

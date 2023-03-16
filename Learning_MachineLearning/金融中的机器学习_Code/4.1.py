@@ -335,7 +335,7 @@ plt.show()
 
 # %%
 
-from statsmodels.tsa.arima_model import ARIMA
+from statsmodels.tsa.arima.model import ARIMA
 
 # %%
 
@@ -357,16 +357,19 @@ residuals = pd.DataFrame(model.resid)
 ax.plot(residuals)
 
 plt.title('ARIMA residuals for 2NE1 pageviews')
+plt.show()
 
 # %%
 
 residuals.plot(kind='kde',
                figsize=(10, 7),
                title='ARIMA residual distribution 2NE1 ARIMA', legend=False)
+plt.show()
 
 # %%
 
-predictions, stderr, conf_int = model.forecast(50)
+# predictions, stderr, conf_int = model.forecast(50)
+predictions = model.forecast(50)
 
 # %%
 
@@ -381,6 +384,7 @@ ax.plot(np.arange(500, 550), predictions, label='Forecast')
 plt.title('2NE1 ARIMA forecasts')
 ax.legend()
 ax.set_yscale('log')
+plt.show()
 
 # %%
 
@@ -438,9 +442,6 @@ kf = simdkalman.KalmanFilter(state_transition=state_transition,
 
 # %%
 
-
-# %%
-
 result = kf.compute(X_train[0], 50)
 
 # %%
@@ -467,3 +468,4 @@ ax.plot(np.arange(480, 500),
 
 ax.legend()
 ax.set_yscale('log')
+plt.show()

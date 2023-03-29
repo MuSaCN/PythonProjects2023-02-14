@@ -264,7 +264,7 @@ fetch_housing_data()
 
 #%% ######################################################
 
-HOUSING_PATH ='handson-ml2\\datasets\\housing'
+HOUSING_PATH = 'Hands-On Machine Learning2\\datasets\\housing'
 import pandas as pd
 def load_housing_data(housing_path=HOUSING_PATH):
     csv_path = os.path.join(housing_path, "housing.csv")

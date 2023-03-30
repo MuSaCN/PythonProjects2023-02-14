@@ -327,33 +327,47 @@ save_fig("bad_visualization_plot")
 
 housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.1)
 save_fig("better_visualization_plot")
+plt.show()
 
 #%% md
 
-The argument `sharex=False` fixes a display bug (the x-axis values and legend were not displayed). This is a temporary fix (see: https://github.com/pandas-dev/pandas/issues/10611 ). Thanks to Wilmer Arellano for pointing it out.
+# The argument `sharex=False` fixes a display bug (the x-axis values and legend were not displayed). This is a temporary fix (see: https://github.com/pandas-dev/pandas/issues/10611 ). Thanks to Wilmer Arellano for pointing it out.
 
 #%%
-
+# ---画4属性散点图。x，y为经纬度，s点大小为人口，c颜色为房价.
 housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.4,
     s=housing["population"]/100, label="population", figsize=(10,7),
     c="median_house_value", cmap=plt.get_cmap("jet"), colorbar=True,
     sharex=False)
 plt.legend()
 save_fig("housing_prices_scatterplot")
+plt.show()
+
+def plotDF_scatter_4(df, x, y, s, c, alpha=0.4, label=None, figsize=(10, 7), show=True):
+    df.plot(kind="scatter", x=x, y=y, alpha=alpha,
+            s=s, label=label, figsize=figsize,
+            c=c, cmap=plt.get_cmap("jet"), colorbar=True,
+            sharex=False)
+    plt.legend()
+    if show == True:
+        plt.show()
+plotDF_scatter_4(housing, x="longitude", y="latitude",s=housing["population"]/100,c="median_house_value")
 
 #%%
 
 # Download the California image
-images_path = os.path.join(PROJECT_ROOT_DIR, "images", "end_to_end_project")
-os.makedirs(images_path, exist_ok=True)
-DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml2/master/"
-filename = "california.png"
-print("Downloading", filename)
-url = DOWNLOAD_ROOT + "images/end_to_end_project/" + filename
-urllib.request.urlretrieve(url, os.path.join(images_path, filename))
+# images_path = os.path.join(PROJECT_ROOT_DIR, "images", "end_to_end_project")
+# os.makedirs(images_path, exist_ok=True)
+# DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml2/master/"
+# filename = "california.png"
+# print("Downloading", filename)
+# url = DOWNLOAD_ROOT + "images/end_to_end_project/" + filename
+# urllib.request.urlretrieve(url, os.path.join(images_path, filename))
 
 #%%
-
+# 图片叠加到另外一张图片上
+images_path = PROJECT_ROOT_DIR+r"\images\end_to_end_project"
+filename = "california.png"
 import matplotlib.image as mpimg
 california_img=mpimg.imread(os.path.join(images_path, filename))
 ax = housing.plot(kind="scatter", x="longitude", y="latitude", figsize=(10,7),
@@ -393,6 +407,7 @@ attributes = ["median_house_value", "median_income", "total_rooms",
               "housing_median_age"]
 scatter_matrix(housing[attributes], figsize=(12, 8))
 save_fig("scatter_matrix_plot")
+plt.show()
 
 #%%
 
@@ -400,9 +415,10 @@ housing.plot(kind="scatter", x="median_income", y="median_house_value",
              alpha=0.1)
 plt.axis([0, 16, 0, 550000])
 save_fig("income_vs_house_value_scatterplot")
+plt.show()
 
 #%%
-
+# 有的属性单独分析意义不大，尝试组合，组合后相关性可能更好。
 housing["rooms_per_household"] = housing["total_rooms"]/housing["households"]
 housing["bedrooms_per_room"] = housing["total_bedrooms"]/housing["total_rooms"]
 housing["population_per_household"]=housing["population"]/housing["households"]

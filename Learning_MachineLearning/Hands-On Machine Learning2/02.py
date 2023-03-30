@@ -477,7 +477,7 @@ imputer = SimpleImputer(strategy="median")
 
 #%% md
 
-Remove the text attribute because median can only be calculated on numerical attributes:
+# Remove the text attribute because median can only be calculated on numerical attributes:
 
 #%%
 
@@ -494,7 +494,7 @@ imputer.statistics_
 
 #%% md
 
-Check that this is the same as manually computing the median of each attribute:
+# Check that this is the same as manually computing the median of each attribute:
 
 #%%
 
@@ -502,7 +502,7 @@ housing_num.median().values
 
 #%% md
 
-Transform the training set:
+# Transform the training set:
 
 #%%
 
@@ -532,15 +532,16 @@ housing_tr.head()
 
 #%% md
 
-Now let's preprocess the categorical input feature, `ocean_proximity`:
+# Now let's preprocess the categorical input feature, `ocean_proximity`:
 
 #%%
-
+#
 housing_cat = housing[["ocean_proximity"]]
 housing_cat.head(10)
 
 #%%
-
+# ---处理具有分类意义的文本
+# OrdinalEncoder 编码分类功能作为整数数组，注意结果有排序意义。无排序意义用onehot编码。
 from sklearn.preprocessing import OrdinalEncoder
 
 ordinal_encoder = OrdinalEncoder()
@@ -561,7 +562,7 @@ housing_cat_1hot
 
 #%% md
 
-By default, the `OneHotEncoder` class returns a sparse array, but we can convert it to a dense array if needed by calling the `toarray()` method:
+# By default, the `OneHotEncoder` class returns a sparse array, but we can convert it to a dense array if needed by calling the `toarray()` method:
 
 #%%
 
@@ -569,7 +570,7 @@ housing_cat_1hot.toarray()
 
 #%% md
 
-Alternatively, you can set `sparse=False` when creating the `OneHotEncoder`:
+# Alternatively, you can set `sparse=False` when creating the `OneHotEncoder`:
 
 #%%
 
@@ -583,7 +584,7 @@ cat_encoder.categories_
 
 #%% md
 
-Let's create a custom transformer to add extra attributes:
+# Let's create a custom transformer to add extra attributes:
 
 #%%
 
@@ -620,7 +621,7 @@ housing_extra_attribs.head()
 
 #%% md
 
-Now let's build a pipeline for preprocessing the numerical attributes:
+# Now let's build a pipeline for preprocessing the numerical attributes:
 
 #%%
 
@@ -663,7 +664,7 @@ housing_prepared.shape
 
 #%% md
 
-For reference, here is the old solution based on a `DataFrameSelector` transformer (to just select a subset of the Pandas `DataFrame` columns), and a `FeatureUnion`:
+# For reference, here is the old solution based on a `DataFrameSelector` transformer (to just select a subset of the Pandas `DataFrame` columns), and a `FeatureUnion`:
 
 #%%
 
@@ -680,7 +681,7 @@ class OldDataFrameSelector(BaseEstimator, TransformerMixin):
 
 #%% md
 
-Now let's join all these components into a big pipeline that will preprocess both the numerical and the categorical features:
+# Now let's join all these components into a big pipeline that will preprocess both the numerical and the categorical features:
 
 #%%
 
@@ -715,11 +716,15 @@ old_housing_prepared
 
 #%% md
 
-The result is the same as with the `ColumnTransformer`:
+# The result is the same as with the `ColumnTransformer`:
 
 #%%
 
 np.allclose(housing_prepared, old_housing_prepared)
+
+a = np.array([[1],[2],[3]])
+b = np.array([1.0,2.0,3.0])
+np.allclose(a,b)
 
 #%% md
 
@@ -743,7 +748,7 @@ print("Predictions:", lin_reg.predict(some_data_prepared))
 
 #%% md
 
-Compare against the actual values:
+# Compare against the actual values:
 
 #%%
 
@@ -813,7 +818,7 @@ display_scores(lin_rmse_scores)
 
 #%% md
 
-**Note**: we specify `n_estimators=100` to be future-proof since the default value is going to change to 100 in Scikit-Learn 0.22 (for simplicity, this is not shown in the book).
+# **Note**: we specify `n_estimators=100` to be future-proof since the default value is going to change to 100 in Scikit-Learn 0.22 (for simplicity, this is not shown in the book).
 
 #%%
 
@@ -873,7 +878,7 @@ grid_search = GridSearchCV(forest_reg, param_grid, cv=5,
 grid_search.fit(housing_prepared, housing_labels)
 
 #%% md
-
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 The best hyperparameter combination found:
 
 #%%

@@ -878,8 +878,7 @@ grid_search = GridSearchCV(forest_reg, param_grid, cv=5,
 grid_search.fit(housing_prepared, housing_labels)
 
 #%% md
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-The best hyperparameter combination found:
+# The best hyperparameter combination found:
 
 #%%
 
@@ -891,7 +890,7 @@ grid_search.best_estimator_
 
 #%% md
 
-Let's look at the score of each hyperparameter combination tested during the grid search:
+# Let's look at the score of each hyperparameter combination tested during the grid search:
 
 #%%
 
@@ -957,21 +956,22 @@ final_rmse
 
 #%% md
 
-We can compute a 95% confidence interval for the test RMSE:
+# We can compute a 95% confidence interval for the test RMSE:
 
 #%%
-
+# ---置信区间计算
 from scipy import stats
 
 confidence = 0.95
 squared_errors = (final_predictions - y_test) ** 2
+# 这里开根号为了缩小范围
 np.sqrt(stats.t.interval(confidence, len(squared_errors) - 1,
                          loc=squared_errors.mean(),
                          scale=stats.sem(squared_errors)))
 
 #%% md
 
-We could compute the interval manually like this:
+# We could compute the interval manually like this:
 
 #%%
 
@@ -983,7 +983,7 @@ np.sqrt(mean - tmargin), np.sqrt(mean + tmargin)
 
 #%% md
 
-Alternatively, we could use a z-scores rather than t-scores:
+# Alternatively, we could use a z-scores rather than t-scores:
 
 #%%
 
@@ -1018,11 +1018,11 @@ full_pipeline_with_predictor.predict(some_data)
 my_model = full_pipeline_with_predictor
 
 #%%
-
 import joblib
-joblib.dump(my_model, "my_model.pkl") # DIFF
+# 将任意Python对象持久化到一个文件中
+joblib.dump(my_model, PROJECT_ROOT_DIR + r"\datasets\my_model.pkl") # DIFF
 #...
-my_model_loaded = joblib.load("my_model.pkl") # DIFF
+my_model_loaded = joblib.load(PROJECT_ROOT_DIR + r"\datasets\my_model.pkl") # DIFF
 
 #%% md
 
@@ -1048,7 +1048,7 @@ plt.show()
 
 #%% md
 
-Question: Try a Support Vector Machine regressor (`sklearn.svm.SVR`), with various hyperparameters such as `kernel="linear"` (with various values for the `C` hyperparameter) or `kernel="rbf"` (with various values for the `C` and `gamma` hyperparameters). Don't worry about what these hyperparameters mean for now. How does the best `SVR` predictor perform?
+# Question: Try a Support Vector Machine regressor (`sklearn.svm.SVR`), with various hyperparameters such as `kernel="linear"` (with various values for the `C` hyperparameter) or `kernel="rbf"` (with various values for the `C` and `gamma` hyperparameters). Don't worry about what these hyperparameters mean for now. How does the best `SVR` predictor perform?
 
 #%%
 
@@ -1066,7 +1066,7 @@ grid_search.fit(housing_prepared, housing_labels)
 
 #%% md
 
-The best model achieves the following score (evaluated using 5-fold cross validation):
+# The best model achieves the following score (evaluated using 5-fold cross validation):
 
 #%%
 
@@ -1076,7 +1076,7 @@ rmse
 
 #%% md
 
-That's much worse than the `RandomForestRegressor`. Let's check the best hyperparameters found:
+# That's much worse than the `RandomForestRegressor`. Let's check the best hyperparameters found:
 
 #%%
 
@@ -1084,7 +1084,7 @@ grid_search.best_params_
 
 #%% md
 
-The linear kernel seems better than the RBF kernel. Notice that the value of `C` is the maximum tested value. When this happens you definitely want to launch the grid search again with higher values for `C` (removing the smallest values), because it is likely that higher values of `C` will be better.
+# The linear kernel seems better than the RBF kernel. Notice that the value of `C` is the maximum tested value. When this happens you definitely want to launch the grid search again with higher values for `C` (removing the smallest values), because it is likely that higher values of `C` will be better.
 
 #%% md
 
@@ -1092,7 +1092,7 @@ The linear kernel seems better than the RBF kernel. Notice that the value of `C`
 
 #%% md
 
-Question: Try replacing `GridSearchCV` with `RandomizedSearchCV`.
+# Question: Try replacing `GridSearchCV` with `RandomizedSearchCV`.
 
 #%%
 
@@ -1117,7 +1117,7 @@ rnd_search.fit(housing_prepared, housing_labels)
 
 #%% md
 
-The best model achieves the following score (evaluated using 5-fold cross validation):
+# The best model achieves the following score (evaluated using 5-fold cross validation):
 
 #%%
 
@@ -1127,7 +1127,7 @@ rmse
 
 #%% md
 
-Now this is much closer to the performance of the `RandomForestRegressor` (but not quite there yet). Let's check the best hyperparameters found:
+# Now this is much closer to the performance of the `RandomForestRegressor` (but not quite there yet). Let's check the best hyperparameters found:
 
 #%%
 
@@ -1135,11 +1135,11 @@ rnd_search.best_params_
 
 #%% md
 
-This time the search found a good set of hyperparameters for the RBF kernel. Randomized search tends to find better hyperparameters than grid search in the same amount of time.
+# This time the search found a good set of hyperparameters for the RBF kernel. Randomized search tends to find better hyperparameters than grid search in the same amount of time.
 
 #%% md
 
-Let's look at the exponential distribution we used, with `scale=1.0`. Note that some samples are much larger or smaller than 1.0, but when you look at the log of the distribution, you can see that most values are actually concentrated roughly in the range of exp(-2) to exp(+2), which is about 0.1 to 7.4.
+# Let's look at the exponential distribution we used, with `scale=1.0`. Note that some samples are much larger or smaller than 1.0, but when you look at the log of the distribution, you can see that most values are actually concentrated roughly in the range of exp(-2) to exp(+2), which is about 0.1 to 7.4.
 
 #%%
 
@@ -1156,7 +1156,7 @@ plt.show()
 
 #%% md
 
-The distribution we used for `C` looks quite different: the scale of the samples is picked from a uniform distribution within a given range, which is why the right graph, which represents the log of the samples, looks roughly constant. This distribution is useful when you don't have a clue of what the target scale is:
+# The distribution we used for `C` looks quite different: the scale of the samples is picked from a uniform distribution within a given range, which is why the right graph, which represents the log of the samples, looks roughly constant. This distribution is useful when you don't have a clue of what the target scale is:
 
 #%%
 
@@ -1173,7 +1173,7 @@ plt.show()
 
 #%% md
 
-The reciprocal distribution is useful when you have no idea what the scale of the hyperparameter should be (indeed, as you can see on the figure on the right, all scales are equally likely, within the given range), whereas the exponential distribution is best when you know (more or less) what the scale of the hyperparameter should be.
+# The reciprocal distribution is useful when you have no idea what the scale of the hyperparameter should be (indeed, as you can see on the figure on the right, all scales are equally likely, within the given range), whereas the exponential distribution is best when you know (more or less) what the scale of the hyperparameter should be.
 
 #%% md
 
@@ -1181,7 +1181,7 @@ The reciprocal distribution is useful when you have no idea what the scale of th
 
 #%% md
 
-Question: Try adding a transformer in the preparation pipeline to select only the most important attributes.
+# Question: Try adding a transformer in the preparation pipeline to select only the most important attributes.
 
 #%%
 
@@ -1202,11 +1202,11 @@ class TopFeatureSelector(BaseEstimator, TransformerMixin):
 
 #%% md
 
-Note: this feature selector assumes that you have already computed the feature importances somehow (for example using a `RandomForestRegressor`). You may be tempted to compute them directly in the `TopFeatureSelector`'s `fit()` method, however this would likely slow down grid/randomized search since the feature importances would have to be computed for every hyperparameter combination (unless you implement some sort of cache).
+# Note: this feature selector assumes that you have already computed the feature importances somehow (for example using a `RandomForestRegressor`). You may be tempted to compute them directly in the `TopFeatureSelector`'s `fit()` method, however this would likely slow down grid/randomized search since the feature importances would have to be computed for every hyperparameter combination (unless you implement some sort of cache).
 
 #%% md
 
-Let's define the number of top features we want to keep:
+# Let's define the number of top features we want to keep:
 
 #%%
 
@@ -1214,7 +1214,7 @@ k = 5
 
 #%% md
 
-Now let's look for the indices of the top k features:
+# Now let's look for the indices of the top k features:
 
 #%%
 
@@ -1227,7 +1227,7 @@ np.array(attributes)[top_k_feature_indices]
 
 #%% md
 
-Let's double check that these are indeed the top k features:
+# Let's double check that these are indeed the top k features:
 
 #%%
 
@@ -1235,7 +1235,7 @@ sorted(zip(feature_importances, attributes), reverse=True)[:k]
 
 #%% md
 
-Looking good... Now let's create a new pipeline that runs the previously defined preparation pipeline, and adds top k feature selection:
+# Looking good... Now let's create a new pipeline that runs the previously defined preparation pipeline, and adds top k feature selection:
 
 #%%
 
@@ -1250,7 +1250,7 @@ housing_prepared_top_k_features = preparation_and_feature_selection_pipeline.fit
 
 #%% md
 
-Let's look at the features of the first 3 instances:
+# Let's look at the features of the first 3 instances:
 
 #%%
 
@@ -1258,7 +1258,7 @@ housing_prepared_top_k_features[0:3]
 
 #%% md
 
-Now let's double check that these are indeed the top k features:
+# Now let's double check that these are indeed the top k features:
 
 #%%
 
@@ -1266,7 +1266,7 @@ housing_prepared[0:3, top_k_feature_indices]
 
 #%% md
 
-Works great!  :)
+# Works great!  :)
 
 #%% md
 
@@ -1274,7 +1274,7 @@ Works great!  :)
 
 #%% md
 
-Question: Try creating a single pipeline that does the full data preparation plus the final prediction.
+# Question: Try creating a single pipeline that does the full data preparation plus the final prediction.
 
 #%%
 
@@ -1290,7 +1290,7 @@ prepare_select_and_predict_pipeline.fit(housing, housing_labels)
 
 #%% md
 
-Let's try the full pipeline on a few instances:
+# Let's try the full pipeline on a few instances:
 
 #%%
 
@@ -1302,7 +1302,7 @@ print("Labels:\t\t", list(some_labels))
 
 #%% md
 
-Well, the full pipeline seems to work fine. Of course, the predictions are not fantastic: they would be better if we used the best `RandomForestRegressor` that we found earlier, rather than the best `SVR`.
+# Well, the full pipeline seems to work fine. Of course, the predictions are not fantastic: they would be better if we used the best `RandomForestRegressor` that we found earlier, rather than the best `SVR`.
 
 #%% md
 
@@ -1310,7 +1310,7 @@ Well, the full pipeline seems to work fine. Of course, the predictions are not f
 
 #%% md
 
-Question: Automatically explore some preparation options using `GridSearchCV`.
+# Question: Automatically explore some preparation options using `GridSearchCV`.
 
 #%%
 
@@ -1329,8 +1329,8 @@ grid_search_prep.best_params_
 
 #%% md
 
-The best imputer strategy is `most_frequent` and apparently almost all features are useful (15 out of 16). The last one (`ISLAND`) seems to just add some noise.
+# The best imputer strategy is `most_frequent` and apparently almost all features are useful (15 out of 16). The last one (`ISLAND`) seems to just add some noise.
 
 #%% md
 
-Congratulations! You already know quite a lot about Machine Learning. :)
+# Congratulations! You already know quite a lot about Machine Learning. :)

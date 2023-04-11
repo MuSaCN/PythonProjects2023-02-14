@@ -1080,27 +1080,27 @@ Theta = np.random.randn(n_inputs, n_outputs)
 
 for iteration in range(n_iterations):
     logits = X_train.dot(Theta)
-Y_proba = softmax(logits)
-xentropy_loss = -np.mean(np.sum(Y_train_one_hot * np.log(Y_proba + epsilon), axis=1))
-l2_loss = 1 / 2 * np.sum(np.square(Theta[1:]))
-loss = xentropy_loss + alpha * l2_loss
-error = Y_proba - Y_train_one_hot
-gradients = 1 / m * X_train.T.dot(error) + np.r_[np.zeros([1, n_outputs]), alpha * Theta[1:]]
-Theta = Theta - eta * gradients
+    Y_proba = softmax(logits)
+    xentropy_loss = -np.mean(np.sum(Y_train_one_hot * np.log(Y_proba + epsilon), axis=1))
+    l2_loss = 1 / 2 * np.sum(np.square(Theta[1:]))
+    loss = xentropy_loss + alpha * l2_loss
+    error = Y_proba - Y_train_one_hot
+    gradients = 1 / m * X_train.T.dot(error) + np.r_[np.zeros([1, n_outputs]), alpha * Theta[1:]]
+    Theta = Theta - eta * gradients
 
-logits = X_valid.dot(Theta)
-Y_proba = softmax(logits)
-xentropy_loss = -np.mean(np.sum(Y_valid_one_hot * np.log(Y_proba + epsilon), axis=1))
-l2_loss = 1 / 2 * np.sum(np.square(Theta[1:]))
-loss = xentropy_loss + alpha * l2_loss
-if iteration % 500 == 0:
-    print(iteration, loss)
-if loss < best_loss:
-    best_loss = loss
-else:
-    print(iteration - 1, best_loss)
-print(iteration, loss, "early stopping!")
-break
+    logits = X_valid.dot(Theta)
+    Y_proba = softmax(logits)
+    xentropy_loss = -np.mean(np.sum(Y_valid_one_hot * np.log(Y_proba + epsilon), axis=1))
+    l2_loss = 1 / 2 * np.sum(np.square(Theta[1:]))
+    loss = xentropy_loss + alpha * l2_loss
+    if iteration % 500 == 0:
+        print(iteration, loss)
+    if loss < best_loss:
+        best_loss = loss
+    else:
+        print(iteration - 1, best_loss)
+    print(iteration, loss, "early stopping!")
+    break
 
 # %%
 

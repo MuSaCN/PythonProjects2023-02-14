@@ -294,7 +294,47 @@ plt.show()
 
 #%% SGD REGRESSOR (SGD)
 
+# First experiment with linear regression
+
+# SGD is very sensitive to data with features at different scales. Hence we need to do feature scaling before training.
+# search for the SGD-based linear regression with the optimal set of parameters.
+from sklearn.linear_model import SGDRegressor
+
+param_grid = {
+    'penalty':['l1', 'l2', 'elasticnet'],
+    "alpha": [1e-5, 3e-5, 1e-4],
+    "eta0": [0.01, 0.03, 0.1],
+}
+
+sgd = SGDRegressor()
+# cv k折交叉验证参数，指定fold数量。k折交叉验证将所有数据集分成k份，不重复地每次取其中一份做测试集，用其余k-1份做训练集训练模型，之后计算该模型在测试集上的得分,将k次的得分取平均得到最后的得分。
+grid_search = GridSearchCV(sgd, param_grid, cv=5, scoring='neg_mean_absolute_error', n_jobs=-1)
+grid_search.fit(X_scaled_train, y_train)
+
+print(grid_search.best_params_)
+
+sgd_best = grid_search.best_estimator_
+#print(grid_search.best_score_)
+
+predictions_sgd = sgd_best.predict(X_scaled_test)
+
+#evaluating the predictions
+print('RMSE: {0:.3f}'.format(mean_squared_error(y_test, predictions_sgd)**0.5))
+print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, predictions_sgd)))
+print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_sgd)))
+# RMSE: 0.010
+# MAE: 0.007
+# R^2: 0.938
+
+#%%
+dates = data_test.index.values
+plt.figure(figsize = (18,9))
+plot_truth, = plt.plot(dates, y_test)
+plot_sgd, = plt.plot(dates, predictions_sgd)
+plt.legend([plot_truth, plot_sgd], ['Truth', 'SGD'])
+plt.title('Gold price : Prediction vs Truth - SGD Regressor')
+plt.style.use('seaborn-whitegrid')
+plt.show()
 
 
-
-
+#%%

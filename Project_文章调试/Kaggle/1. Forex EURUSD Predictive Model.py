@@ -61,6 +61,10 @@ myDefault.set_backend_default("Pycharm")  # Pycharm下需要plt.show()才显示�
 # import warnings
 # warnings.filterwarnings('ignore')
 
+'''
+外汇各个简单模式预测收盘价，注意各个结果都有滞后。
+'''
+
 # %%
 #ignoring warnings
 import warnings

@@ -122,7 +122,7 @@ eu[['volume']].boxplot()
 plt.show()
 
 #%%
-
+# ---建立特征值
 def generate_features(df):
     """ Generate features for a stock/index/currency/commodity based on historical price and performance
     Args:
@@ -230,15 +230,15 @@ plt.show()
 import datetime
 
 #segregate data for training
-start_train = datetime.datetime(1999, 1, 1,0,0)
-end_train = datetime.datetime(2017, 12, 31, 0, 0)
-data_train = data.loc[start_train:end_train]
+start_train = datetime.datetime(2000, 1, 1, 0, 0)
+end_train = datetime.datetime(2019, 12, 31, 0, 0)
+data_train = data.loc[start_train : end_train]
 data_train.describe()
 
 #segregate data for validation
-start_test = datetime.datetime(2018, 1, 1, 0, 0)
-end_test = datetime.datetime(2019, 6, 7, 0, 0)
-data_test = data.loc[start_test:end_test]
+start_test = datetime.datetime(2020, 1, 1, 0, 0)
+end_test = None
+data_test = data.loc[start_test : None]
 data_test.describe()
 
 #%%
@@ -280,8 +280,12 @@ predictions_lin = lin.predict(X_scaled_test)
 print('RMSE: {0:.3f}'.format(mean_squared_error(y_test, predictions_lin)**0.5))
 print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, predictions_lin)))
 print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_lin)))
+# RMSE: 0.005
+# MAE: 0.004
+# R^2: 0.984
 
 #%% 以测试集来展示下预测结果与实际结果
+### ！！！注意下面的方法预测的结果都有滞后！！！ ###
 dates = data_test.index.values
 plt.figure(figsize = (18,9))
 plt.style.use('seaborn-whitegrid')
@@ -337,4 +341,140 @@ plt.style.use('seaborn-whitegrid')
 plt.show()
 
 
+#%% Extreme Gradient Boosting Regressor (XGB)
+xgb = XGBRegressor()
+
+data_dmatrix = DMatrix(data=X_train, label=y_train)
+
+xgb_param_grid = {'learning_rate': [0.001, 0.01, 0.1, 1],
+                  'n_estimators': [50, 100, 200, 300],
+                  'subsample': [0.3, 0.5, 0.7, 1]}
+
+grid_search = GridSearchCV(estimator=xgb,
+                        param_grid=xgb_param_grid,
+                        scoring='neg_mean_squared_error',
+                        cv=4,
+                        verbose=1,
+                       n_jobs=-1)
+
+grid_search.fit(X_train, y_train)
+
+print("Best parameters found: ", grid_search.best_params_)
+
+xgb_best = grid_search.best_estimator_
+
+xgb_best.fit(X_train,y_train)
+predictions_xgb = xgb_best.predict(X_test)
+
+print('RMSE: {0:.3f}'.format(mean_squared_error(y_test, predictions_xgb)**0.5))
+print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, predictions_xgb)))
+print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_xgb)))
+
 #%%
+dates = data_test.index.values
+plt.figure(figsize = (18,9))
+plot_truth, = plt.plot(dates, y_test)
+plot_xgb, = plt.plot(dates, predictions_xgb)
+plt.legend([plot_truth, plot_xgb], ['Truth', 'xgb'])
+plt.title('Gold price : Prediction vs Truth - XGB Regressor')
+plt.show()
+
+
+#%% Bagging Regressor (BGR)
+bgr = BaggingRegressor(base_estimator=lin, n_estimators=100, oob_score=True, n_jobs=-1)
+
+bgr.fit(X_scaled_train, y_train)
+predictions_bgr = bgr.predict(X_scaled_test)
+
+print('OOB: {0:.3f}'.format(bgr.oob_score))
+print('RMSE: {0:.3f}'.format(mean_squared_error(y_test, predictions_bgr)**0.5))
+print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, predictions_bgr)))
+print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_bgr)))
+
+#%%
+dates = data_test.index.values
+plt.figure(figsize = (18,9))
+plot_truth, = plt.plot(dates, y_test)
+plot_bgr, = plt.plot(dates, predictions_bgr)
+plt.legend([plot_truth, plot_bgr], ['Truth', 'bgr'])
+plt.title('Gold price : Prediction vs Truth - BGR')
+plt.show()
+
+#%% Random Forest Regressor (RF)
+param_grid = {
+    "max_depth": [30, 50],
+    "min_samples_split": [5, 10, 20],
+}
+
+rf = RandomForestRegressor(n_estimators=100)
+grid_search = GridSearchCV(rf, param_grid, cv=5, scoring='neg_mean_absolute_error', n_jobs=-1)
+grid_search.fit(X_train, y_train)
+
+print(grid_search.best_params_)
+# print(grid_search.best_score_)
+
+rf_best = grid_search.best_estimator_
+predictions_rf = rf_best.predict(X_test)
+
+print('RMSE: {0:.3f}'.format(mean_squared_error(y_test, predictions_rf)**0.5))
+print('MAE: {0:.3f}'.format(mean_absolute_error(y_test, predictions_rf)))
+print('R^2: {0:.3f}'.format(r2_score(y_test, predictions_rf)))
+
+#%%
+dates = data_test.index.values
+plt.figure(figsize = (18,9))
+plot_truth, = plt.plot(dates, y_test)
+plot_rf, = plt.plot(dates, predictions_rf)
+plt.legend([plot_truth, plot_rf], ['Truth', 'RF'])
+plt.title('Gold price : Prediction vs Truth - Random Forest')
+plt.show()
+
+
+#%%
+mae_scoring = pd.Series({'LIN':mean_absolute_error(y_test, predictions_lin),
+                'SGD':mean_absolute_error(y_test, predictions_sgd),
+                'XGB':mean_absolute_error(y_test, predictions_xgb),
+                #'VTR':mean_absolute_error(y_test, predictions_vtr),
+                'BGR':mean_absolute_error(y_test, predictions_bgr),
+                'RFR':mean_absolute_error(y_test, predictions_rf)})
+
+#filtering the regressor with the least mean_absolute_error value
+filter = mae_scoring.min()
+mae_min = mae_scoring[mae_scoring == mae_scoring.min()]
+print('The model with the least mean_absolute_error:\n',mae_min)
+
+plt.plot(mae_scoring, 'r')
+plt.show()
+
+
+#%% Saving, Loading and Predicting with the best Model
+# saving the model with sklearn:joblib
+savepath = __mypath__.current_workpath()+ r"\Project_文章调试\Kaggle"
+joblib.dump(lin, savepath + '\\1. lin_eurusd.pkl')
+# loading the saved model
+model = joblib.load(savepath + '\\1. lin_eurusd.pkl')
+
+#%%
+#Visualizing the predictions and truth values
+pred = model.predict(X_scaled_test)
+plt.figure(figsize=(15,7))
+plt.plot(y_test, 'r', label='Truth')
+plt.plot(y_test.index, pred, 'b', label='Predicted')
+plt.title("Bagging Regressor Model")
+plt.xlabel('Date')
+plt.ylabel('Price')
+plt.legend()
+plt.show()
+
+#%%
+#plotting regression line
+plt.style.use('seaborn-whitegrid')
+plt.scatter(y_test, pred,color='blue')
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', lw=3, label='Regression fit')
+fig = plt.gcf()
+fig.set_size_inches(10,5)
+plt.title("Regression Line for EURUSD")
+plt.legend()
+plt.show()
+
+

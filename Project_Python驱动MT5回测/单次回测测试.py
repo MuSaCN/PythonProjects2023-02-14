@@ -66,8 +66,8 @@ myMT5run.__init__()
 myMT5run.default_config()
 
 bt_expertname = "moving_average_with_frames.ex5"
-symbol = "AUDJPY"
-bt_reportfile = __mypath__.get_desktop_path() + "\\test\\test.xml"
+symbollist = ["EURUSD","GBPUSD","AUDUSD"]
+
 
 
 def common_set():
@@ -78,19 +78,21 @@ def strategy_set(): # Repair_ExpandPoint
     # myMT5run.input_set("MovingShift", "10||10||1||20||N")
 
 #%%
-myMT5run.__init__()
-myMT5run.config_Tester(bt_expertname, symbol, "TIMEFRAME_M15",
-                       fromdate="2020.01.01", todate="2022.01.01",
-                       forwardmode=0, forwarddate=None,
-                       delays=0, model=1,
-                       optimization=0,  # 0禁优化,1慢速完整
-                       optcriterion=0, profitinpips=1,
-                       reportfile=bt_reportfile, shutdownterminal=0, deposit=1000)
-common_set()
-strategy_set()
-# ---检查参数输入是否匹配优化的模式，且写出配置结果。
-myMT5run.check_inputs_and_write()
-myMT5run.run_MT5(open=False)
+for symbol in symbollist:
+    bt_reportfile = __mypath__.get_desktop_path() + "\\TEST\\%s.xml" % symbol
+    myMT5run.__init__()
+    myMT5run.config_Tester(bt_expertname, symbol, "TIMEFRAME_M15",
+                           fromdate="2020.01.01", todate="2022.01.01",
+                           forwardmode=0, forwarddate=None,
+                           delays=0, model=1,
+                           optimization=0,  # 0禁优化,1慢速完整
+                           optcriterion=0, profitinpips=1,
+                           reportfile=bt_reportfile, shutdownterminal=1, deposit=1000)
+    common_set()
+    strategy_set()
+    # ---检查参数输入是否匹配优化的模式，且写出配置结果。
+    myMT5run.check_inputs_and_write()
+    myMT5run.run_MT5(open=False)
 
 
 
